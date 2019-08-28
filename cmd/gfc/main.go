@@ -1,11 +1,11 @@
 package main
 
 import (
-	"github.com/bikun-bikun/gofmtchecker/internal/exec"
+	"github.com/bikun-bikun/gofmtchecker/internal/application"
 	"os"
 )
 
 func main() {
-	code := exec.Run()
+	code := application.Run()
 	os.Exit(code)
 }

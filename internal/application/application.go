@@ -1,4 +1,4 @@
-package exec
+package application
 func Run() (exitCode int) {
 	exitCode = 0
 
