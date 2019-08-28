@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
-	code := application.Run()
+	app := application.NewApplication(" ")
+	code := app.Run()
 	os.Exit(code)
 }
