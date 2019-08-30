@@ -1,10 +1,18 @@
 package application
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestRun(t *testing.T) {
-	app := NewApplication(true)
-	cd := app.Run()
+	ta := &app{
+		true,
+		true,
+		true,
+		"../../.",
+		"",
+	}
+	cd := ta.Run()
 	if cd != 0 {
 		t.Errorf("exsec RunFunc is Faild: exitCode = %v", cd)
 	}

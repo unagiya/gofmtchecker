@@ -13,14 +13,21 @@ type app struct {
 	binPath string
 }
 
-func NewApplication(flag bool) *app {
-	return &app{flag, flag, flag, "", ""}
+func NewApplication(list, simple, display bool, path, binPath string) *app {
+	return &app{
+		list,
+		simple,
+		display,
+		path,
+		binPath,
+	}
 }
 
 func (a *app) Run() (exitCode int) {
 	exitCode = 0
-	cmd := exec.Command(getGofmtPath(a.binPath), "-s", "-l", ".")
+	cmd := exec.Command(getGofmtPath(a.binPath), a.buildParam()...)
 	out, err := cmd.Output()
+	fmt.Println(string(out))
 	if err != nil {
 		fmt.Printf("%v", err)
 		exitCode = 2
@@ -30,6 +37,21 @@ func (a *app) Run() (exitCode int) {
 		fmt.Print("Please take  product ")
 		exitCode = 1
 	}
+	return
+}
+
+func (a *app) buildParam() (param []string) {
+	if a.simple {
+		param = append(param, "-s")
+	}
+	if a.list {
+		param = append(param, "-l")
+	}
+	if a.display {
+		param = append(param, "-d")
+	}
+	param = append(param, a.path)
+
 	return
 }
 
