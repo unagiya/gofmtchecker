@@ -13,6 +13,7 @@ type app struct {
 	binPath string
 }
 
+//NewApplication ...
 func NewApplication(list, simple, display bool, path, binPath string) *app {
 	return &app{
 list,
