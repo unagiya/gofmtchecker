@@ -22,7 +22,7 @@ func main() {
 	flag.StringVar(&path, "p", ".", "gofmt path")
 	flag.StringVar(&binPath, "b", "", "gofmt binPath")
 
-	app := application.NewApplication(" ")
+	app := application.NewApplication(false)
 	code := app.Run()
 	os.Exit(code)
 }

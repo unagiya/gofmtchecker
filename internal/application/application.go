@@ -14,12 +14,12 @@ type app struct {
 }
 
 func NewApplication(flag bool) *app {
-	return &app{flag}
+	return &app{flag, flag, flag, "", ""}
 }
 
 func (a *app) Run() (exitCode int) {
 	exitCode = 0
-	cmd := exec.Command("godfmt", "s", "l", ".")
+	cmd := exec.Command(getGofmtPath(a.binPath), "-s", "-l", ".")
 	out, err := cmd.Output()
 	if err != nil {
 		fmt.Printf("%v", err)
@@ -31,4 +31,12 @@ func (a *app) Run() (exitCode int) {
 		exitCode = 1
 	}
 	return
+}
+
+func getGofmtPath(binPath string) string {
+	if len(binPath) > 0 {
+		binPath = binPath + "/"
+	}
+	return fmt.Sprintf("%sgofmt", binPath)
+
 }
