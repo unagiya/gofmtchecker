@@ -1,0 +1,20 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/golang:1
+    working_directory: /go/src/github.com/bikun-bikun/gofmtchecker
+    steps:
+      - checkout
+      - run:
+          name: install libraries
+          command: |
+            go get -t -d -v
+            go get -u golang.org/x/lint/golint
+      - run:
+          name: test
+          command: |
+            (! gofmt -s -l . | grep '^')
+            golint -set_exit_status ./...
+            go test ./...
