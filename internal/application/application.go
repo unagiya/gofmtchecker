@@ -1,6 +1,7 @@
 package application
 
 import (
+	"flag"
 	"fmt"
 	"os/exec"
 )
@@ -14,14 +15,26 @@ type app struct {
 }
 
 //NewApplication ...
-func NewApplication(list, simple, display bool, path, binPath string) *app {
+func NewApplication() *app {
+	flag.Parse()
+
+	var (
+		l, s, d bool
+		p, b    string
+	)
+	flag.BoolVar(&l, "l", false, "gofmt option -l")
+	flag.BoolVar(&s, "s", false, "gofmt option -s")
+	flag.BoolVar(&d, "d", false, "gofmt option -d")
+	flag.StringVar(&p, "p", ".", "gofmt path")
+	flag.StringVar(&b, "b", "", "gofmt binPath")
 	return &app{
-list,
-simple,
-display,
-		path,
-		binPath,
+		list:    l,
+		simple:  s,
+		display: d,
+		path:    p,
+		binPath: b,
 	}
+
 }
 
 func (a *app) Run() (exitCode int) {
